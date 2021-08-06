@@ -1,0 +1,24 @@
+server:
+  servlet:
+    context-path: /gateway-service
+  port: 8080
+app:
+  name: gateway
+  security:
+    authentication:
+      ## You can type `openssl rand -base64 64` on your command line to generate a 512 bits one
+      base64-secret: khj4hl9AQuiG3hh/r8m0Toecjb5FR/ziPGCMf7uZx2FAr0kjkHCODd/ZGxOX1pF59rpjOjAo3t2zB3T9oZ0HwA==
+      token-validity-in-seconds: 180000
+      token-validity-in-seconds-for-remember-me: 2592000
+    content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
+#    cors:
+#      allowed-origins: "http://localhost:8100,http://localhost:9000"
+#      allowed-methods: "*"
+#      allowed-headers: "*"
+#      exposed-headers: "Authorization,Link,X-Total-Count,X-${app.name}-alert,X-${app.name}-error,X-${app.name}-params"
+#      allow-credentials: true
+#      max-age: 1800
+feign:
+  client:
+    user:
+      url: http://localhost:8081
