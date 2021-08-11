@@ -1,7 +1,9 @@
 package com.haubui.sample.web.rest.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.haubui.sample.constant.AuthoritiesConstant;
+import com.haubui.sample.client.user.domain.UserResponse;
+import com.haubui.sample.client.user.service.UserClient;
+import com.haubui.sample.common.constants.AuthoritiesConstant;
 import com.haubui.sample.security.jwt.TokenProvider;
 import com.haubui.sample.web.rest.dto.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class AuthenticateController {
     @Autowired
     private TokenProvider _tokenProvider;
 
+    @Autowired
+    private UserClient _userClient;
+
     @PostMapping("/authenticate")
     public ResponseEntity<JWTToken> authenticate(@Valid @RequestBody LoginDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -41,6 +46,11 @@ public class AuthenticateController {
     @GetMapping("/ping")
     public String ping() {
         return "pong";
+    }
+
+    @GetMapping("/getUserById/{userId}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok(_userClient.getById(userId));
     }
 
     static class JWTToken {

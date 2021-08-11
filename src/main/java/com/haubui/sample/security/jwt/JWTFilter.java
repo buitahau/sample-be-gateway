@@ -1,6 +1,6 @@
 package com.haubui.sample.security.jwt;
 
-import com.haubui.sample.constant.AuthoritiesConstant;
+import com.haubui.sample.common.constants.AuthoritiesConstant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;

@@ -1,11 +1,11 @@
 package com.haubui.sample.security;
 
+import com.haubui.sample.client.role.domain.RoleResponse;
 import com.haubui.sample.client.user.domain.UserResponse;
 import com.haubui.sample.client.user.dto.UserDto;
 import com.haubui.sample.client.user.service.UserClient;
 import com.haubui.sample.common.exception.GeneralException;
 import com.haubui.sample.common.utils.GetterUtil;
-import com.haubui.sample.constant.AuthoritiesConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -40,10 +40,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException(e.getMessage());
         }
 
-        // TODO Add role granted authority in here
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstant.ROLE_USER));
-
+        for (RoleResponse role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
         return new UsernamePasswordAuthenticationToken(username, rawPassword, authorities);
     }
 

@@ -3,7 +3,7 @@ package com.haubui.sample.security;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import com.haubui.sample.constant.AuthoritiesConstant;
+import com.haubui.sample.common.constants.AuthoritiesConstant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;

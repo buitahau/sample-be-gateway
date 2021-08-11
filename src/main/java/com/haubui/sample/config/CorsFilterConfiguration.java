@@ -1,5 +1,6 @@
 package com.haubui.sample.config;
 
+import com.haubui.sample.common.utils.string.StringPool;
 import com.haubui.sample.constant.GatewayConstant;
 import com.haubui.sample.security.jwt.TokenProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,7 @@ public class CorsFilterConfiguration {
 
     @Bean
     public CorsFilter corsFilter() {
-        String allowedOrigins = env.getProperty("app.security.cors.allowed-origins", GatewayConstant.BLANK);
+        String allowedOrigins = env.getProperty("app.security.cors.allowed-origins", StringPool.BLANK);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         if (StringUtils.isNotBlank(allowedOrigins)) {
             _log.debug("Registering CORS filter");
@@ -42,16 +43,16 @@ public class CorsFilterConfiguration {
 
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         String allowedOrigins = env.getProperty("app.security.cors.allowed-origins");
-        corsConfiguration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+        corsConfiguration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(StringPool.COMMA)));
 
         String allowedMethods = env.getProperty("app.security.cors.allowed-methods");
-        corsConfiguration.setAllowedMethods(Arrays.asList(allowedMethods.split(",")));
+        corsConfiguration.setAllowedMethods(Arrays.asList(allowedMethods.split(StringPool.COMMA)));
 
         String allowedHeaders = env.getProperty("app.security.cors.allowed-headers");
-        corsConfiguration.setAllowedHeaders(Arrays.asList(allowedHeaders.split(",")));
+        corsConfiguration.setAllowedHeaders(Arrays.asList(allowedHeaders.split(StringPool.COMMA)));
 
         String exposedHeaders = env.getProperty("app.security.cors.exposed-headers");
-        corsConfiguration.setExposedHeaders(Arrays.asList(exposedHeaders.split(",")));
+        corsConfiguration.setExposedHeaders(Arrays.asList(exposedHeaders.split(StringPool.COMMA)));
 
         Boolean allowCredentials = Boolean.valueOf(env.getProperty("app.security.cors.allow-credentials"));
         corsConfiguration.setAllowCredentials(allowCredentials);

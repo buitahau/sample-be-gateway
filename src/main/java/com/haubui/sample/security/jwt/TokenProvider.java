@@ -1,5 +1,6 @@
 package com.haubui.sample.security.jwt;
 
+import com.haubui.sample.common.utils.string.StringPool;
 import com.haubui.sample.constant.GatewayConstant;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -36,8 +37,6 @@ public class TokenProvider {
 
     private static final String _AUTHORITIES_KEY = "auth";
 
-    private static final String _DELIMITER_COMMA = ",";
-
     private static final Logger _log = LoggerFactory.getLogger(TokenProvider.class);
 
     public TokenProvider(
@@ -58,7 +57,7 @@ public class TokenProvider {
             .getAuthorities()
             .stream()
             .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(_DELIMITER_COMMA));
+            .collect(Collectors.joining(StringPool.COMMA));
 
         long now = new Date().getTime();
         Date validity;
@@ -81,11 +80,11 @@ public class TokenProvider {
         Claims claims = _jwtParser.parseClaimsJws(token).getBody();
 
         Collection<? extends GrantedAuthority> authorities = Arrays
-            .stream(claims.get(_AUTHORITIES_KEY).toString().split(_DELIMITER_COMMA))
+            .stream(claims.get(_AUTHORITIES_KEY).toString().split(StringPool.COMMA))
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), GatewayConstant.BLANK, authorities);
+        User principal = new User(claims.getSubject(), StringPool.BLANK, authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
