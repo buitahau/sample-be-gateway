@@ -24,6 +24,12 @@
         <problem-spring-web.version>0.26.2</problem-spring-web.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
 	</properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
